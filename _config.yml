@@ -1,0 +1,6 @@
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
+title: Early Gold, Final Victory
+description: Predicting League of Legends match outcomes from 15-minute game state
