@@ -66,7 +66,7 @@ League of Legends is a five-versus-five game in which teams build advantages thr
 
 The raw dataset contains **148,980 rows**. I use one Blue team-summary row per game for the main analysis, leaving **12,415 match observations**.
 
-Relevant columns include `result`, `golddiffat15`, `xpdiffat15`, `csdiffat15`, `killsat15`, `opp_killsat15`, `turretplates`, `opp_turretplates`, `gamelength`, and `playoffs`.
+Relevant columns include `result`, `golddiffat15`, `xpdiffat15`, `csdiffat15`, `killsat15`, `opp_killsat15`, `turretplates`, `opp_turretplates`, `gamelength`, and `playoffs`. `result` indicates whether the Blue-side team won; `golddiffat15`, `xpdiffat15`, and `csdiffat15` measure Blue's gold, experience, and CS advantages at 15 minutes; `killsat15` and `opp_killsat15` record early kills; `gamelength` records match duration; and `playoffs` indicates whether the match was played in the playoffs.
 
 ## Data Cleaning and Exploratory Data Analysis
 
@@ -220,7 +220,7 @@ I used the difference in means and a one-sided permutation test with 10,000 perm
 
 ## Framing a Prediction Problem
 
-I predict `result` (Blue win/loss) from information available at 15 minutes. This is binary classification. I use accuracy because the classes are close to balanced and compare against the majority-class benchmark.
+I predict `result` (Blue win/loss) from information available at 15 minutes. This is binary classification. I use accuracy because the classes are close to balanced and compare against the majority-class benchmark. At the time of prediction, only information available by the 15-minute mark is used. I therefore exclude final-game statistics and any information that occurs after 15 minutes.
 
 ## Baseline Model
 
