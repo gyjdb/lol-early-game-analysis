@@ -3,6 +3,57 @@ layout: default
 title: Early Gold, Final Victory
 ---
 
+<style>
+.wrapper {
+  width: 1120px;
+}
+
+header {
+  width: 240px;
+}
+
+section {
+  width: 820px;
+}
+
+iframe {
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+  border: 0;
+}
+
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 960px) {
+  .wrapper {
+    width: auto;
+    margin: 0 20px;
+  }
+
+  header,
+  section,
+  footer {
+    float: none;
+    position: static;
+    width: auto;
+  }
+
+  section {
+    padding: 20px 0;
+    border: 0;
+  }
+}
+</style>
+
+# Early Gold, Final Victory
+
 # Early Gold, Final Victory
 
 **Ethan Cai**
