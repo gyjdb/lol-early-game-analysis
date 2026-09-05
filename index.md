@@ -54,8 +54,6 @@ table {
 
 # Early Gold, Final Victory
 
-# Early Gold, Final Victory
-
 **Ethan Cai**
 
 An analysis of 2022 professional League of Legends matches from Oracle's Elixir, focused on early-game advantages at 15 minutes and match outcomes.
