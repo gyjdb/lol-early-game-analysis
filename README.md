@@ -9,10 +9,10 @@ An analysis of **10,522 complete 2022 competitive matches** from Oracle’s Elix
 ## Verified findings
 
 - **A fixed gold lead means less later.** The fitted 90% threshold rises from +2,843 at 10 minutes to +5,148 at 25. This compares changing surviving-match samples, not one game’s trajectory.
-- **Current state adds information.** At 20 minutes, resources and interactions reduce out-of-fold Brier score from **0.14587 to 0.14175** (2.82% relative reduction).
-- **Extra momentum features do not establish further improvement.** Trajectory Brier is 0.14175. Current state minus gold: ΔBrier -0.00412, 95% paired game-bootstrap interval [-0.00522, -0.00305]. Trajectory minus current state: +0.00000, interval [-0.00019, +0.00018]. The latter includes zero.
+- **Current state adds information.** At 20 minutes, resources and interactions reduce out-of-fold Brier score from **0.14581 to 0.14171** (2.81% relative reduction).
+- **Extra momentum features do not establish further improvement.** Trajectory Brier is 0.14173. Current state minus gold: ΔBrier -0.00410, 95% paired game-bootstrap interval [-0.00517, -0.00302]. Trajectory minus current state: +0.00001, interval [-0.00018, +0.00018]. The latter includes zero.
 - **The raw momentum gap is confounded.** For +1K–3K leads at 20 minutes, growing leads win 73.6% (1,967 matches), shrinking leads 65.2% (425). Their mean current leads differ: +2,051 vs. +1,800. This does not isolate momentum.
-- **Team residuals are descriptive.** Counter Logic Gaming wins 20/22 leads against 16.0 expected wins. T1 wins 13/27 deficits against 7.45 expected. These are retrospective signals, not causal skill ratings.
+- **Team residuals are descriptive.** G2 Esports wins 33/37 leads against 27.9 expected wins. T1 wins 13/27 deficits against 7.47 expected. These are retrospective signals, not causal skill ratings.
 
 ## Gold thresholds
 
@@ -29,9 +29,9 @@ Thresholds are approximate crossings on a 600-point fitted grid within the obser
 
 | Model | Brier ↓ | Log loss ↓ | AUC ↑ |
 | --- | ---: | ---: | ---: |
-| Gold + map side | 0.14587 | 0.44686 | 0.87163 |
-| Current state | 0.14175 | 0.43619 | 0.87843 |
-| State + trajectory | 0.14175 | 0.43612 | 0.87846 |
+| Gold + map side | 0.14581 | 0.44672 | 0.87173 |
+| Current state | 0.14171 | 0.43614 | 0.87849 |
+| State + trajectory | 0.14173 | 0.43608 | 0.87851 |
 
 Models use identical five-fold GroupKFold splits by game ID. Both sides stay together; preprocessing fits inside each training fold. Current state adds XP, CS, kills and plates with second-order interactions. Trajectory adds five-minute gold, XP and CS changes. At 10 minutes there is no trajectory history. “Gold-only” shorthand includes map side.
 
