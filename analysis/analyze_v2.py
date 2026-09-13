@@ -238,7 +238,7 @@ def main():
     traj.to_csv(OUT/"lead_trajectory.csv", index=False)
     fig = px.line(traj, x="mean_gold", y="win_rate", color="trajectory", markers=True, labels={"mean_gold":"20-minute gold difference","win_rate":"Observed win rate","trajectory":"Lead trajectory"}, title="Momentum Matters: Growing vs. Shrinking Game States at 20 Minutes"); fig.update_yaxes(tickformat=".0%", range=[0,1]); chart(fig,"lead-trajectory-20.html")
     closing, comeback = team_table(p20,g20,True), team_table(p20,g20,False); closing.to_csv(OUT/"closing_efficiency.csv",index=False); comeback.to_csv(OUT/"comeback_resilience.csv",index=False)
-    for table, fname, title, xlabel in [(closing,"closing-efficiency.html","Closing Efficiency: Who Converts Leads Better Than Expected?","Conversion above expectation (shrunken pp)"),(comeback,"comeback-resilience.html","Comeback Resilience: Who Wins More Often Than Their Deficit Implies?","Comeback performance above expectation (shrunken pp)")]:
+    for table, fname, title, xlabel in [(closing,"closing-efficiency.html","Closing Efficiency: Who Converts Leads Better Than Expected?","Above expectation (shrunken pp)"),(comeback,"comeback-resilience.html","Comeback Resilience: Who Wins More Often Than Their Deficit Implies?","Above expectation (shrunken pp)")]:
         q=table.head(12).sort_values("efficiency_pp")
         if len(q):
             fig=px.bar(q,x="efficiency_pp",y="teamname",color="league",orientation="h",error_x="ci95_pp",hover_data=["n","actual_wins","expected_wins"],labels={"efficiency_pp":xlabel,"teamname":"Team"},title=title)
