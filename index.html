@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A portfolio case study on predicting professional League of Legends match outcomes from the 15-minute game state." />
+  <title>Early Gold, Final Victory — League of Legends Match Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">EG</span>
+        <span>Early Gold, Final Victory</span>
+      </a>
+      <div class="nav-links">
+        <a href="#analysis">Analysis</a>
+        <a href="#model">Model</a>
+        <a href="#fairness">Fairness</a>
+        <a class="nav-cta" href="https://github.com/gyjdb/lol-early-game-analysis">GitHub ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">League of Legends · Data Science Case Study</div>
+          <h1>Can the first 15 minutes <span class="accent">predict the winner?</span></h1>
+          <p class="hero-copy">
+            An analysis of 12,415 professional League of Legends matches using early-game gold, XP, CS,
+            kills, and structural pressure to test how much the game state at minute 15 tells us about the final result.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#model">See the model results ↓</a>
+            <a class="btn btn-secondary" href="#analysis">Explore the analysis</a>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal">
+          <div class="hero-card-label">Final model test accuracy</div>
+          <div class="hero-card-value">72.69<span>%</span></div>
+          <div class="hero-card-note">Logistic regression selected by 5-fold cross-validation</div>
+          <div class="hero-card-rule"></div>
+          <div class="hero-mini-grid">
+            <div class="mini-stat"><strong>+0.44 pp</strong><span>vs. baseline</span></div>
+            <div class="mini-stat"><strong>0.0001</strong><span>gold-lead test p-value</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="stats-strip reveal" aria-label="Project summary statistics">
+        <div class="stat-card"><div class="kicker">Raw rows</div><div class="number">148,980</div><div class="detail">Oracle's Elixir 2022 dataset</div></div>
+        <div class="stat-card"><div class="kicker">Matches analyzed</div><div class="number">12,415</div><div class="detail">One Blue-side team row per match</div></div>
+        <div class="stat-card"><div class="kicker">Baseline accuracy</div><div class="number">72.25%</div><div class="detail">3 original 15-minute features</div></div>
+        <div class="stat-card"><div class="kicker">Fairness p-value</div><div class="number">0.6845</div><div class="detail">Playoffs vs. regular season</div></div>
+      </section>
+    </div>
+
+    <section class="section" id="analysis">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">01 · Question</div>
+          <div>
+            <h2>How much does an early lead matter?</h2>
+            <p class="section-lede">
+              The central question is simple: how strongly is a Blue-side gold advantage at 15 minutes associated
+              with eventually winning? To avoid double-counting, each observation represents one professional match,
+              viewed from the Blue team's team-summary row.
+            </p>
+          </div>
+        </div>
+
+        <div class="method-list reveal">
+          <div class="method-item"><strong>Gold advantage</strong><p><code>golddiffat15</code> measures Blue gold minus Red gold at minute 15.</p></div>
+          <div class="method-item"><strong>Resource context</strong><p>XP and CS differentials describe whether the lead is broad or concentrated.</p></div>
+          <div class="method-item"><strong>Outcome</strong><p><code>result</code> is a binary target: Blue-side win or loss.</p></div>
+        </div>
+
+        <div class="insight reveal">
+          <strong>Key finding</strong>
+          <p>Blue-side wins averaged a +1,874.78 gold advantage at minute 15, while losses averaged −1,533.13 gold.</p>
+        </div>
+
+        <div class="chart-stack">
+          <div class="chart-card reveal">
+            <iframe src="assets/gold-diff-by-outcome.html" title="Gold difference at 15 minutes by outcome"></iframe>
+            <div class="chart-caption">Blue-side wins are shifted toward more positive 15-minute gold differentials, but the overlap shows an early lead does not determine the outcome.</div>
+          </div>
+          <div class="chart-card reveal">
+            <iframe src="assets/gold-vs-xp.html" title="Gold and XP advantages at 15 minutes"></iframe>
+            <div class="chart-caption">Gold and experience advantages move together, but not perfectly—evidence that multiple early-game signals can add predictive value.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">02 · Missingness</div>
+          <div>
+            <h2>Missing data has a game-mechanics explanation.</h2>
+            <p class="section-lede">
+              A 25-minute timeline value cannot exist if the match already ended. That makes game length a natural
+              observed explanation for missing <code>goldat25</code>, rather than evidence of an inherently MNAR mechanism.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-grid reveal">
+          <div class="card"><div class="card-body"><h3>Game length matters</h3><p>Permutation p-value: <strong style="color:var(--text)">0.0002</strong>. Missingness depends strongly on observed match duration.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Side does not</h3><p>TVD permutation p-value: <strong style="color:var(--text)">1.0000</strong>. Timeline availability is shared by Blue and Red summaries of the same match.</p></div></div>
+        </div>
+
+        <div class="chart-card reveal" style="margin-top:18px">
+          <iframe src="assets/missingness-game-length.html" title="Game length and 25-minute gold missingness"></iframe>
+          <div class="chart-caption">Matches missing a 25-minute gold value are shorter on average, which matches the timeline-generation process.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">03 · Inference</div>
+          <div>
+            <h2>The early gold signal is statistically strong.</h2>
+            <p class="section-lede">
+              I used a one-sided permutation test with the difference in mean 15-minute gold differential between Blue wins
+              and Blue losses as the statistic. The observed gap was 3,407.92 gold.
+            </p>
+          </div>
+        </div>
+
+        <div class="metric-compare reveal">
+          <div class="metric-box"><div class="label">Blue wins · mean gold diff</div><div class="value">+1,874.78</div></div>
+          <div class="metric-box"><div class="label">Blue losses · mean gold diff</div><div class="value">−1,533.13</div></div>
+          <div class="metric-box highlight"><div class="label">Permutation p-value</div><div class="value">0.0001</div><div class="delta">Reject H₀ at α = 0.05</div></div>
+        </div>
+
+        <div class="insight reveal">
+          <strong>Interpretation</strong>
+          <p>The result supports a strong association between larger early gold advantages and eventual victory. It does not establish causation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="model">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">04 · Prediction</div>
+          <div>
+            <h2>From descriptive signal to predictive model.</h2>
+            <p class="section-lede">
+              The prediction task uses only information available by minute 15 to classify whether the Blue-side team will win.
+              Final-game and post-15-minute statistics are excluded to prevent leakage.
+            </p>
+          </div>
+        </div>
+
+        <div class="model-flow reveal">
+          <div class="flow-step"><div class="step-no">01</div><strong>Split</strong><p>Fixed stratified 80/20 train-test split.</p></div>
+          <div class="flow-step"><div class="step-no">02</div><strong>Baseline</strong><p>Median imputation + scaling + logistic regression.</p></div>
+          <div class="flow-step"><div class="step-no">03</div><strong>Engineer</strong><p>Kill diff, plate diff, and relative gold lead.</p></div>
+          <div class="flow-step"><div class="step-no">04</div><strong>Tune</strong><p>5-fold GridSearchCV across linear and nonlinear classifiers.</p></div>
+        </div>
+
+        <div class="metric-compare reveal">
+          <div class="metric-box"><div class="label">Majority-class benchmark</div><div class="value">52.40%</div></div>
+          <div class="metric-box"><div class="label">Baseline test accuracy</div><div class="value">72.25%</div></div>
+          <div class="metric-box highlight"><div class="label">Final test accuracy</div><div class="value">72.69%</div><div class="delta">+0.44 percentage points</div></div>
+        </div>
+
+        <div class="card-grid reveal" style="margin-top:18px">
+          <div class="card"><div class="card-body"><h3>Baseline features</h3><p><code>golddiffat15</code>, <code>xpdiffat15</code>, and <code>csdiffat15</code>.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Engineered features</h3><p><code>killdiffat15</code>, <code>plate_diff</code>, and <code>relative_gold_lead</code>.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Model search</h3><p>Logistic Regression, RBF SVM, and Random Forest evaluated through 5-fold cross-validation.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Selected model</h3><p>Logistic Regression with <code>C = 0.01</code>; best CV accuracy: 71.40%.</p></div></div>
+        </div>
+
+        <div class="chart-card reveal" style="margin-top:18px">
+          <iframe src="assets/final-confusion-matrix.html" title="Final model confusion matrix"></iframe>
+          <div class="chart-caption">The final model improves on the baseline while preserving a simple, interpretable decision function.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fairness">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">05 · Fairness</div>
+          <div>
+            <h2>Does the model hold up in playoff matches?</h2>
+            <p class="section-lede">
+              I compared predictive accuracy in playoff matches against regular-season matches using a one-sided permutation test.
+              The question was whether playoff accuracy is meaningfully lower.
+            </p>
+          </div>
+        </div>
+
+        <div class="metric-compare reveal">
+          <div class="metric-box"><div class="label">Playoff accuracy</div><div class="value">73.53%</div></div>
+          <div class="metric-box"><div class="label">Regular-season accuracy</div><div class="value">72.51%</div></div>
+          <div class="metric-box highlight"><div class="label">Fairness p-value</div><div class="value">0.6845</div><div class="delta">Fail to reject H₀</div></div>
+        </div>
+
+        <div class="insight reveal">
+          <strong>Takeaway</strong>
+          <p>There is not sufficient evidence that the final model performs worse in playoff matches than in the regular season.</p>
+        </div>
+
+        <div class="chart-card reveal">
+          <iframe src="assets/fairness-null.html" title="Fairness permutation distribution"></iframe>
+          <div class="chart-caption">The observed playoff-minus-regular-season accuracy difference is +1.02 percentage points, not evidence of worse playoff performance.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-index">06 · Takeaways</div>
+          <div>
+            <h2>What this project shows.</h2>
+            <p class="section-lede">A compact summary of the analytical story, from raw match logs to a calibrated predictive model.</p>
+          </div>
+        </div>
+
+        <div class="card-grid reveal">
+          <div class="card"><div class="card-body"><h3>Early gold is informative—not deterministic.</h3><p>The outcome distributions overlap substantially, so comebacks and conversion efficiency still matter.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Simple models remain competitive.</h3><p>After comparing nonlinear alternatives, regularized logistic regression still produced the best cross-validated result.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Feature engineering adds incremental value.</h3><p>Combat, structural pressure, and relative economic scale improved held-out accuracy above the baseline.</p></div></div>
+          <div class="card"><div class="card-body"><h3>Evaluation should match deployment context.</h3><p>The fairness check explicitly tests whether model quality changes in higher-stakes playoff games.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>Built by <strong style="color:var(--text)">Ethan Cai</strong> · Data Science</div>
+      <div><a href="https://github.com/gyjdb/lol-early-game-analysis">View repository ↗</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const sections = [...document.querySelectorAll('section[id]')];
+    const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY + 140;
+      let current = '';
+      sections.forEach((section) => { if (section.offsetTop <= y) current = section.id; });
+      navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
+    });
+  </script>
+</body>
+</html>
