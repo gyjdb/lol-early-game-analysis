@@ -1,0 +1,872 @@
+{
+  "games": 10522,
+  "team_observations": 21044,
+  "timepoints": {
+    "10": {
+      "games_reaching_checkpoint": 10522,
+      "gold_only": {
+        "brier": 0.19751326730006744,
+        "log_loss": 0.5777540755434251,
+        "auc": 0.7639114573565163
+      },
+      "current_state": {
+        "brier": 0.19589268709853874,
+        "log_loss": 0.5739880375542792,
+        "auc": 0.768093415734399
+      },
+      "state_trajectory": {
+        "brier": 0.19589268709853874,
+        "log_loss": 0.5739880375542792,
+        "auc": 0.768093415734399
+      },
+      "thresholds_gold_diff": {
+        "p80": 1803.9545158597657,
+        "p90": 2843.269874791318,
+        "p95": 3808.3484223706164
+      },
+      "composition_comparison": {
+        "delta_brier": -0.0016205802015286826,
+        "ci_low": -0.0023661120955081293,
+        "ci_high": -0.0008657706752780307
+      },
+      "trajectory_comparison": {
+        "delta_brier": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0
+      },
+      "features": [
+        "golddiffat10",
+        "xpdiffat10",
+        "csdiffat10",
+        "killdiff",
+        "side_blue"
+      ],
+      "missing_fraction": {
+        "golddiffat10": 0.0,
+        "xpdiffat10": 0.0,
+        "csdiffat10": 0.0,
+        "killdiff": 0.0,
+        "side_blue": 0.0
+      },
+      "games_ended_before_checkpoint": 0
+    },
+    "15": {
+      "games_reaching_checkpoint": 10522,
+      "gold_only": {
+        "brier": 0.1722928647703677,
+        "log_loss": 0.5147789844021862,
+        "auc": 0.8218619410616784
+      },
+      "current_state": {
+        "brier": 0.16966759973525292,
+        "log_loss": 0.5088776335411226,
+        "auc": 0.827284671889396
+      },
+      "state_trajectory": {
+        "brier": 0.16975571160044722,
+        "log_loss": 0.5091438802447587,
+        "auc": 0.8270910080926375
+      },
+      "thresholds_gold_diff": {
+        "p80": 2662.3016193656094,
+        "p90": 4196.509332220367,
+        "p95": 5640.469532554256
+      },
+      "composition_comparison": {
+        "delta_brier": -0.00262526503511479,
+        "ci_low": -0.0035202113043572847,
+        "ci_high": -0.0017608475786108915
+      },
+      "trajectory_comparison": {
+        "delta_brier": 8.811186519428225e-05,
+        "ci_low": -2.8199091054933147e-05,
+        "ci_high": 0.00019801460256008697
+      },
+      "features": [
+        "golddiffat15",
+        "xpdiffat15",
+        "csdiffat15",
+        "killdiff",
+        "side_blue",
+        "plate_diff",
+        "gold_velocity",
+        "xp_velocity",
+        "cs_velocity"
+      ],
+      "missing_fraction": {
+        "golddiffat15": 0.0,
+        "xpdiffat15": 0.0,
+        "csdiffat15": 0.0,
+        "killdiff": 0.0,
+        "side_blue": 0.0,
+        "plate_diff": 0.004181714502946208,
+        "gold_velocity": 0.0,
+        "xp_velocity": 0.0,
+        "cs_velocity": 0.0
+      },
+      "games_ended_before_checkpoint": 0
+    },
+    "20": {
+      "games_reaching_checkpoint": 10462,
+      "gold_only": {
+        "brier": 0.14586962745683113,
+        "log_loss": 0.4468645853275531,
+        "auc": 0.8716298045404584
+      },
+      "current_state": {
+        "brier": 0.14174924487757445,
+        "log_loss": 0.4361918933314071,
+        "auc": 0.8784282201298298
+      },
+      "state_trajectory": {
+        "brier": 0.14175246144637765,
+        "log_loss": 0.43612021449934324,
+        "auc": 0.8784550534563353
+      },
+      "thresholds_gold_diff": {
+        "p80": 3109.272395659431,
+        "p90": 4892.21181135225,
+        "p95": 6544.692245409011
+      },
+      "composition_comparison": {
+        "delta_brier": -0.0041203825792566675,
+        "ci_low": -0.0052165291979556295,
+        "ci_high": -0.0030469648936293538
+      },
+      "trajectory_comparison": {
+        "delta_brier": 3.2165688031900406e-06,
+        "ci_low": -0.00018689690398311618,
+        "ci_high": 0.0001814912908867683
+      },
+      "features": [
+        "golddiffat20",
+        "xpdiffat20",
+        "csdiffat20",
+        "killdiff",
+        "side_blue",
+        "plate_diff",
+        "gold_velocity",
+        "xp_velocity",
+        "cs_velocity"
+      ],
+      "missing_fraction": {
+        "golddiffat20": 0.0,
+        "xpdiffat20": 0.0,
+        "csdiffat20": 0.0,
+        "killdiff": 0.0,
+        "side_blue": 0.0,
+        "plate_diff": 0.004205696807493787,
+        "gold_velocity": 0.0,
+        "xp_velocity": 0.0,
+        "cs_velocity": 0.0
+      },
+      "games_ended_before_checkpoint": 60
+    },
+    "25": {
+      "games_reaching_checkpoint": 9442,
+      "gold_only": {
+        "brier": 0.1198281138980793,
+        "log_loss": 0.37616722558559434,
+        "auc": 0.911695069522436
+      },
+      "current_state": {
+        "brier": 0.11558209163894635,
+        "log_loss": 0.36420785168048553,
+        "auc": 0.9175691355658899
+      },
+      "state_trajectory": {
+        "brier": 0.11538407663933523,
+        "log_loss": 0.3637585912877336,
+        "auc": 0.9177770179713683
+      },
+      "thresholds_gold_diff": {
+        "p80": 3252.6756594323815,
+        "p90": 5147.9354924874715,
+        "p95": 6940.748848080126
+      },
+      "composition_comparison": {
+        "delta_brier": -0.004246022259132951,
+        "ci_low": -0.005435245893758886,
+        "ci_high": -0.0030362716627694965
+      },
+      "trajectory_comparison": {
+        "delta_brier": -0.00019801499961113222,
+        "ci_low": -0.0005058446903722521,
+        "ci_high": 9.35107084465568e-05
+      },
+      "features": [
+        "golddiffat25",
+        "xpdiffat25",
+        "csdiffat25",
+        "killdiff",
+        "side_blue",
+        "plate_diff",
+        "gold_velocity",
+        "xp_velocity",
+        "cs_velocity"
+      ],
+      "missing_fraction": {
+        "golddiffat25": 0.0,
+        "xpdiffat25": 0.0,
+        "csdiffat25": 0.0,
+        "killdiff": 0.0,
+        "side_blue": 0.0,
+        "plate_diff": 0.004024571065452235,
+        "gold_velocity": 0.0,
+        "xp_velocity": 0.0,
+        "cs_velocity": 0.0
+      },
+      "games_ended_before_checkpoint": 1076
+    }
+  },
+  "source_url": "https://raw.githubusercontent.com/twodotone/finalLOL/bec30f4031cfb11aa3424240a427997480134f79/data/csv/2022_LoL_esports_match_data_from_OraclesElixir.csv",
+  "source_sha256": "cd14d6e3500c08e4a48d737144aa2d2dce72111f4dcf51028949a3b811832a93",
+  "raw_games": 12415,
+  "excluded_partial_games": 1893,
+  "date_start": "2022-01-10 07:44:08",
+  "date_end": "2022-12-21 19:22:53",
+  "major_league_coverage": [
+    {
+      "league": "LCK",
+      "complete": 467,
+      "partial": 0
+    },
+    {
+      "league": "LCS",
+      "complete": 306,
+      "partial": 0
+    },
+    {
+      "league": "LEC",
+      "complete": 243,
+      "partial": 0
+    },
+    {
+      "league": "LPL",
+      "complete": 0,
+      "partial": 786
+    }
+  ],
+  "temporal_holdout_20": [
+    {
+      "model": "Gold + side",
+      "train_games": 9007,
+      "test_games": 1455,
+      "brier": 0.13129800929020807,
+      "log_loss": 0.4131843746398652,
+      "auc": 0.8940881661765921
+    },
+    {
+      "model": "Current state",
+      "train_games": 9007,
+      "test_games": 1455,
+      "brier": 0.12649780839648375,
+      "log_loss": 0.4001312709223893,
+      "auc": 0.901346464968529
+    },
+    {
+      "model": "State + trajectory",
+      "train_games": 9007,
+      "test_games": 1455,
+      "brier": 0.12695110099063356,
+      "log_loss": 0.4009878793403202,
+      "auc": 0.9007560137457046
+    }
+  ],
+  "closing_top": [
+    {
+      "league": "LCS",
+      "teamname": "Counter Logic Gaming",
+      "n": 22,
+      "actual_wins": 20,
+      "expected_wins": 15.966026676630953,
+      "mean_expected": 0.725728485301407,
+      "residual_mean": 0.18336242378950207,
+      "residual_sd": 0.3008660405929436,
+      "efficiency": 0.07757641006478934,
+      "efficiency_pp": 7.757641006478934,
+      "se_pp": 2.713820804601574,
+      "ci95_pp": 5.3190887770190844
+    },
+    {
+      "league": "LEC",
+      "teamname": "G2 Esports",
+      "n": 37,
+      "actual_wins": 33,
+      "expected_wins": 28.02566964424593,
+      "mean_expected": 0.7574505309255657,
+      "residual_mean": 0.13444136096632625,
+      "residual_sd": 0.32621766857416107,
+      "efficiency": 0.07424373665304584,
+      "efficiency_pp": 7.424373665304584,
+      "se_pp": 2.961648673319627,
+      "ci95_pp": 5.804831399706469
+    },
+    {
+      "league": "LCK",
+      "teamname": "T1",
+      "n": 73,
+      "actual_wins": 61,
+      "expected_wins": 54.166079564999954,
+      "mean_expected": 0.7420010899315063,
+      "residual_mean": 0.09361534842465817,
+      "residual_sd": 0.3384112603231235,
+      "efficiency": 0.06634874208737909,
+      "efficiency_pp": 6.63487420873791,
+      "se_pp": 2.8071719181149453,
+      "ci95_pp": 5.502056959505293
+    },
+    {
+      "league": "LCS",
+      "teamname": "Evil Geniuses",
+      "n": 49,
+      "actual_wins": 45,
+      "expected_wins": 39.79884177446899,
+      "mean_expected": 0.8122212607034488,
+      "residual_mean": 0.10614608623532677,
+      "residual_sd": 0.2672424149021522,
+      "efficiency": 0.06583744589279762,
+      "efficiency_pp": 6.583744589279762,
+      "se_pp": 2.3679707649557793,
+      "ci95_pp": 4.641222699313327
+    },
+    {
+      "league": "LCK",
+      "teamname": "Gen.G",
+      "n": 62,
+      "actual_wins": 57,
+      "expected_wins": 51.57869507914046,
+      "mean_expected": 0.83191443676033,
+      "residual_mean": 0.08744040194934746,
+      "residual_sd": 0.27626177181668493,
+      "efficiency": 0.0589272274006472,
+      "efficiency_pp": 5.89272274006472,
+      "se_pp": 2.3644427897532947,
+      "ci95_pp": 4.6343078679164575
+    },
+    {
+      "league": "LCS",
+      "teamname": "FlyQuest",
+      "n": 20,
+      "actual_wins": 17,
+      "expected_wins": 14.391484088982958,
+      "mean_expected": 0.7195742044491479,
+      "residual_mean": 0.13042579555085207,
+      "residual_sd": 0.3493083967180992,
+      "efficiency": 0.05217031822034083,
+      "efficiency_pp": 5.217031822034083,
+      "se_pp": 3.124309280692537,
+      "ci95_pp": 6.123646190157372
+    },
+    {
+      "league": "LCK",
+      "teamname": "Dplus Kia",
+      "n": 67,
+      "actual_wins": 54,
+      "expected_wins": 49.07497095520366,
+      "mean_expected": 0.7324622530627412,
+      "residual_mean": 0.07350789619099014,
+      "residual_sd": 0.395170416493575,
+      "efficiency": 0.050773495307178756,
+      "efficiency_pp": 5.077349530717876,
+      "se_pp": 3.3346487257811077,
+      "ci95_pp": 6.535911502530971
+    },
+    {
+      "league": "LEC",
+      "teamname": "Rogue",
+      "n": 41,
+      "actual_wins": 35,
+      "expected_wins": 31.802410321418378,
+      "mean_expected": 0.7756685444248385,
+      "residual_mean": 0.07798999216052735,
+      "residual_sd": 0.3120135577054185,
+      "efficiency": 0.04503647434622002,
+      "efficiency_pp": 4.5036474346220015,
+      "se_pp": 2.813889540494673,
+      "ci95_pp": 5.515223499369559
+    }
+  ],
+  "comeback_top": [
+    {
+      "league": "LCK",
+      "teamname": "T1",
+      "n": 27,
+      "actual_wins": 13,
+      "expected_wins": 7.453664974464506,
+      "mean_expected": 0.2760616657209076,
+      "residual_mean": 0.20541981576057383,
+      "residual_sd": 0.47760165219380957,
+      "efficiency": 0.09730412325500866,
+      "efficiency_pp": 9.730412325500867,
+      "se_pp": 4.353843828307989,
+      "ci95_pp": 8.533533903483658
+    },
+    {
+      "league": "LCK",
+      "teamname": "Gen.G",
+      "n": 33,
+      "actual_wins": 15,
+      "expected_wins": 9.892495542467707,
+      "mean_expected": 0.2997725921959911,
+      "residual_mean": 0.15477286234946344,
+      "residual_sd": 0.47644838695487257,
+      "efficiency": 0.08107149932590942,
+      "efficiency_pp": 8.107149932590941,
+      "se_pp": 4.344424772546441,
+      "ci95_pp": 8.515072554191024
+    },
+    {
+      "league": "LCS",
+      "teamname": "100 Thieves",
+      "n": 31,
+      "actual_wins": 12,
+      "expected_wins": 7.388053210620511,
+      "mean_expected": 0.23832429711679065,
+      "residual_mean": 0.1487724770767577,
+      "residual_sd": 0.4412289398506923,
+      "efficiency": 0.0756056850717949,
+      "efficiency_pp": 7.5605685071794895,
+      "se_pp": 4.02730945434419,
+      "ci95_pp": 7.893526530514611
+    },
+    {
+      "league": "LEC",
+      "teamname": "G2 Esports",
+      "n": 25,
+      "actual_wins": 9,
+      "expected_wins": 5.419497215108035,
+      "mean_expected": 0.2167798886043214,
+      "residual_mean": 0.1432201113956786,
+      "residual_sd": 0.4005883326465515,
+      "efficiency": 0.06510005063439937,
+      "efficiency_pp": 6.510005063439937,
+      "se_pp": 3.64171211496865,
+      "ci95_pp": 7.137755745338555
+    },
+    {
+      "league": "LCK",
+      "teamname": "Liiv SANDBOX",
+      "n": 60,
+      "actual_wins": 18,
+      "expected_wins": 13.487155169379873,
+      "mean_expected": 0.22478591948966456,
+      "residual_mean": 0.07521408051033546,
+      "residual_sd": 0.41662889352086996,
+      "efficiency": 0.05014272034022364,
+      "efficiency_pp": 5.0142720340223645,
+      "se_pp": 3.585770591455894,
+      "ci95_pp": 7.028110359253552
+    },
+    {
+      "league": "LEC",
+      "teamname": "Misfits Gaming",
+      "n": 32,
+      "actual_wins": 8,
+      "expected_wins": 5.137743456875898,
+      "mean_expected": 0.16055448302737182,
+      "residual_mean": 0.08944551697262818,
+      "residual_sd": 0.4061389429504213,
+      "efficiency": 0.046165428114904865,
+      "efficiency_pp": 4.616542811490486,
+      "se_pp": 3.7055948472797318,
+      "ci95_pp": 7.2629659006682745
+    },
+    {
+      "league": "LEC",
+      "teamname": "SK Gaming",
+      "n": 27,
+      "actual_wins": 8,
+      "expected_wins": 5.8249478731271935,
+      "mean_expected": 0.215738810115822,
+      "residual_mean": 0.08055748618047433,
+      "residual_sd": 0.4220081281547523,
+      "efficiency": 0.03815880924338258,
+      "efficiency_pp": 3.815880924338258,
+      "se_pp": 3.847050100900363,
+      "ci95_pp": 7.540218197764712
+    },
+    {
+      "league": "LEC",
+      "teamname": "Fnatic",
+      "n": 32,
+      "actual_wins": 11,
+      "expected_wins": 9.055399582095484,
+      "mean_expected": 0.2829812369404839,
+      "residual_mean": 0.06076876305951612,
+      "residual_sd": 0.4424673932251936,
+      "efficiency": 0.031364522869427675,
+      "efficiency_pp": 3.1364522869427676,
+      "se_pp": 4.037054118754439,
+      "ci95_pp": 7.9126260727587
+    }
+  ],
+  "league_thresholds_20": [
+    {
+      "league": "LCK",
+      "gold_for_90pct": 4002.5818196995024,
+      "observations": 928
+    },
+    {
+      "league": "LCS",
+      "gold_for_90pct": 4403.26661101838,
+      "observations": 612
+    },
+    {
+      "league": "LEC",
+      "gold_for_90pct": 6187.541093489146,
+      "observations": 484
+    }
+  ],
+  "trajectory_20_moderate_leads": [
+    {
+      "trajectory": "Growing (>500g gained)",
+      "n": 1967,
+      "win_rate": 0.7361464158617184,
+      "mean_gold": 2050.625826131164,
+      "mean_velocity": 1586.0889679715303
+    },
+    {
+      "trajectory": "Shrinking (>500g lost)",
+      "n": 425,
+      "win_rate": 0.6517647058823529,
+      "mean_gold": 1799.7670588235294,
+      "mean_velocity": -1219.3647058823528
+    },
+    {
+      "trajectory": "Stable (within 500g)",
+      "n": 828,
+      "win_rate": 0.6618357487922706,
+      "mean_gold": 1875.542270531401,
+      "mean_velocity": 47.84057971014493
+    }
+  ],
+  "fragile_examples": [
+    {
+      "gameid": "ESPORTSTMNT01_2740268",
+      "date": "2022-02-22 00:29:48",
+      "league": "PGC",
+      "teamname": "Immortals Area of Effect",
+      "opponent": "Illinois State University",
+      "result": 1,
+      "golddiffat20": 1217.0,
+      "xpdiffat20": -3679.0,
+      "csdiffat20": 86.0,
+      "killdiff": -9.0,
+      "gold_velocity": -1737.0,
+      "p_gold": 0.6306321001026793,
+      "p_state": 0.3150538190803073,
+      "state_edge": -0.31557828102237206
+    },
+    {
+      "gameid": "ESPORTSTMNT03_3061208",
+      "date": "2022-11-15 20:33:54",
+      "league": "IC",
+      "teamname": "Team Heretics",
+      "opponent": "Barça eSports",
+      "result": 1,
+      "golddiffat20": 340.0,
+      "xpdiffat20": -4063.0,
+      "csdiffat20": 50.0,
+      "killdiff": -8.0,
+      "gold_velocity": -2448.0,
+      "p_gold": 0.5333622834317342,
+      "p_state": 0.2179551065785862,
+      "state_edge": -0.315407176853148
+    },
+    {
+      "gameid": "ESPORTSTMNT04_2170372",
+      "date": "2022-03-01 15:25:17",
+      "league": "UL",
+      "teamname": "Goskilla",
+      "opponent": "devils.one",
+      "result": 0,
+      "golddiffat20": 765.0,
+      "xpdiffat20": -3687.0,
+      "csdiffat20": 0.0,
+      "killdiff": -5.0,
+      "gold_velocity": 260.0,
+      "p_gold": 0.5832727335164218,
+      "p_state": 0.26809850216468684,
+      "state_edge": -0.315174231351735
+    },
+    {
+      "gameid": "ESPORTSTMNT02_2558896",
+      "date": "2022-02-19 09:45:23",
+      "league": "VCS",
+      "teamname": "GAM Esports",
+      "opponent": "Team Flash",
+      "result": 1,
+      "golddiffat20": 1685.0,
+      "xpdiffat20": -3182.0,
+      "csdiffat20": 17.0,
+      "killdiff": -3.0,
+      "gold_velocity": -2098.0,
+      "p_gold": 0.6797103587776809,
+      "p_state": 0.3683907707742046,
+      "state_edge": -0.3113195880034763
+    },
+    {
+      "gameid": "ESPORTSTMNT02_3046747",
+      "date": "2022-10-12 15:51:43",
+      "league": "NLC Aurora Open",
+      "teamname": "Astralis Talent",
+      "opponent": "Karolinerna",
+      "result": 0,
+      "golddiffat20": 2157.0,
+      "xpdiffat20": -3469.0,
+      "csdiffat20": -41.0,
+      "killdiff": 0.0,
+      "gold_velocity": -2968.0,
+      "p_gold": 0.7220250774936208,
+      "p_state": 0.417110699134314,
+      "state_edge": -0.3049143783593068
+    }
+  ],
+  "robust_examples": [
+    {
+      "gameid": "ESPORTSTMNT03_3043471",
+      "date": "2022-11-29 17:20:08",
+      "league": "NEXO",
+      "teamname": "Kawaii Kiwis",
+      "opponent": "Oxygen Valiants",
+      "result": 1,
+      "golddiffat20": 786.0,
+      "xpdiffat20": 4935.0,
+      "csdiffat20": -35.0,
+      "killdiff": 13.0,
+      "gold_velocity": 1312.0,
+      "p_gold": 0.5839354411175175,
+      "p_state": 0.8379062055964348,
+      "state_edge": 0.2539707644789173
+    },
+    {
+      "gameid": "ESPORTSTMNT06_2531658",
+      "date": "2022-07-31 15:41:50",
+      "league": "CBLOL",
+      "teamname": "INTZ",
+      "opponent": "Liberty",
+      "result": 1,
+      "golddiffat20": 203.0,
+      "xpdiffat20": 4674.0,
+      "csdiffat20": 38.0,
+      "killdiff": 3.0,
+      "gold_velocity": 1947.0,
+      "p_gold": 0.5187993034387897,
+      "p_state": 0.7726345388828169,
+      "state_edge": 0.2538352354440272
+    },
+    {
+      "gameid": "ESPORTSTMNT01_2915196",
+      "date": "2022-05-30 18:39:22",
+      "league": "NLC",
+      "teamname": "Dusty",
+      "opponent": "MNM Gaming",
+      "result": 1,
+      "golddiffat20": 701.0,
+      "xpdiffat20": 5800.0,
+      "csdiffat20": 63.0,
+      "killdiff": 2.0,
+      "gold_velocity": 752.0,
+      "p_gold": 0.5796244751327717,
+      "p_state": 0.820701456513713,
+      "state_edge": 0.24107698138094125
+    },
+    {
+      "gameid": "NA1_4219261456",
+      "date": "2022-02-17 01:51:49",
+      "league": "UPL",
+      "teamname": "University of Texas at Dallas",
+      "opponent": "Cosmic Wolf Esports",
+      "result": 1,
+      "golddiffat20": 1212.0,
+      "xpdiffat20": 5973.0,
+      "csdiffat20": 58.0,
+      "killdiff": 3.0,
+      "gold_velocity": 2220.0,
+      "p_gold": 0.6375707418067122,
+      "p_state": 0.875081217827766,
+      "state_edge": 0.2375104760210538
+    },
+    {
+      "gameid": "ESPORTSTMNT03_2895362",
+      "date": "2022-07-31 15:42:30",
+      "league": "HC",
+      "teamname": "Inside Games Challengers",
+      "opponent": "ERKO Esports",
+      "result": 0,
+      "golddiffat20": 125.0,
+      "xpdiffat20": 4444.0,
+      "csdiffat20": -4.0,
+      "killdiff": 4.0,
+      "gold_velocity": 2494.0,
+      "p_gold": 0.5187232426519035,
+      "p_state": 0.7512748605347622,
+      "state_edge": 0.23255161788285872
+    }
+  ],
+  "largest_throws": [
+    {
+      "gameid": "ESPORTSTMNT03_3062021",
+      "date": "2022-11-19 03:29:34",
+      "league": "LAS",
+      "teamname": "Dplus Kia Youth",
+      "opponent": "KT Rolster Academy",
+      "result": 0,
+      "golddiffat20": 14579.0,
+      "xpdiffat20": 8029.0,
+      "csdiffat20": 142.0,
+      "killdiff": 14.0,
+      "gold_velocity": 7385.0,
+      "p_gold": 0.9986115097652428,
+      "p_state": 0.9985653836574675,
+      "state_edge": -4.612610777532389e-05
+    },
+    {
+      "gameid": "ESPORTSTMNT03_3062289",
+      "date": "2022-11-20 04:49:21",
+      "league": "LAS",
+      "teamname": "DRX Academy",
+      "opponent": "Dplus Kia Youth",
+      "result": 0,
+      "golddiffat20": 11322.0,
+      "xpdiffat20": 8070.0,
+      "csdiffat20": 81.0,
+      "killdiff": 12.0,
+      "gold_velocity": 3780.0,
+      "p_gold": 0.9940139887204744,
+      "p_state": 0.995343128296597,
+      "state_edge": 0.0013291395761225733
+    },
+    {
+      "gameid": "NA1_4268968801",
+      "date": "2022-04-08 02:16:00",
+      "league": "UPL",
+      "teamname": "University of Michigan",
+      "opponent": "Last Resistance",
+      "result": 0,
+      "golddiffat20": 8530.0,
+      "xpdiffat20": 9737.0,
+      "csdiffat20": 4.0,
+      "killdiff": 14.0,
+      "gold_velocity": 7935.0,
+      "p_gold": 0.9790611978271515,
+      "p_state": 0.9940750096947516,
+      "state_edge": 0.015013811867600091
+    },
+    {
+      "gameid": "ESPORTSTMNT02_3057215",
+      "date": "2022-10-12 18:39:26",
+      "league": "NLC Aurora Open",
+      "teamname": "X7 Esports",
+      "opponent": "Cabbage Family",
+      "result": 0,
+      "golddiffat20": 11381.0,
+      "xpdiffat20": 5019.0,
+      "csdiffat20": 71.0,
+      "killdiff": 13.0,
+      "gold_velocity": 4578.0,
+      "p_gold": 0.994081910874435,
+      "p_state": 0.9934472560728481,
+      "state_edge": -0.0006346548015868647
+    },
+    {
+      "gameid": "NA1_4355107253",
+      "date": "2022-06-28 23:43:00",
+      "league": "PGC",
+      "teamname": "Team Ambition",
+      "opponent": "Team Pending",
+      "result": 0,
+      "golddiffat20": 8134.0,
+      "xpdiffat20": 6865.0,
+      "csdiffat20": 118.0,
+      "killdiff": 10.0,
+      "gold_velocity": 2139.0,
+      "p_gold": 0.9750094811595852,
+      "p_state": 0.9882189117534368,
+      "state_edge": 0.013209430593851601
+    }
+  ],
+  "largest_comebacks": [
+    {
+      "gameid": "ESPORTSTMNT03_3062021",
+      "date": "2022-11-19 03:29:34",
+      "league": "LAS",
+      "teamname": "KT Rolster Academy",
+      "opponent": "Dplus Kia Youth",
+      "result": 1,
+      "golddiffat20": -14579.0,
+      "xpdiffat20": -8029.0,
+      "csdiffat20": -142.0,
+      "killdiff": -14.0,
+      "gold_velocity": -7385.0,
+      "p_gold": 0.0013884902347571781,
+      "p_state": 0.001434616342532391,
+      "state_edge": 4.6126107775212866e-05
+    },
+    {
+      "gameid": "ESPORTSTMNT03_3062289",
+      "date": "2022-11-20 04:49:21",
+      "league": "LAS",
+      "teamname": "Dplus Kia Youth",
+      "opponent": "DRX Academy",
+      "result": 1,
+      "golddiffat20": -11322.0,
+      "xpdiffat20": -8070.0,
+      "csdiffat20": -81.0,
+      "killdiff": -12.0,
+      "gold_velocity": -3780.0,
+      "p_gold": 0.005986011279525638,
+      "p_state": 0.004656871703402843,
+      "state_edge": -0.0013291395761227953
+    },
+    {
+      "gameid": "NA1_4268968801",
+      "date": "2022-04-08 02:16:00",
+      "league": "UPL",
+      "teamname": "Last Resistance",
+      "opponent": "University of Michigan",
+      "result": 1,
+      "golddiffat20": -8530.0,
+      "xpdiffat20": -9737.0,
+      "csdiffat20": -4.0,
+      "killdiff": -14.0,
+      "gold_velocity": -7935.0,
+      "p_gold": 0.020938802172848492,
+      "p_state": 0.005924990305248401,
+      "state_edge": -0.015013811867600091
+    },
+    {
+      "gameid": "ESPORTSTMNT02_3057215",
+      "date": "2022-10-12 18:39:26",
+      "league": "NLC Aurora Open",
+      "teamname": "Cabbage Family",
+      "opponent": "X7 Esports",
+      "result": 1,
+      "golddiffat20": -11381.0,
+      "xpdiffat20": -5019.0,
+      "csdiffat20": -71.0,
+      "killdiff": -13.0,
+      "gold_velocity": -4578.0,
+      "p_gold": 0.005918089125565074,
+      "p_state": 0.006552743927151883,
+      "state_edge": 0.0006346548015868092
+    },
+    {
+      "gameid": "NA1_4355107253",
+      "date": "2022-06-28 23:43:00",
+      "league": "PGC",
+      "teamname": "Team Pending",
+      "opponent": "Team Ambition",
+      "result": 1,
+      "golddiffat20": -8134.0,
+      "xpdiffat20": -6865.0,
+      "csdiffat20": -118.0,
+      "killdiff": -10.0,
+      "gold_velocity": -2139.0,
+      "p_gold": 0.024990518840414755,
+      "p_state": 0.011781088246563265,
+      "state_edge": -0.01320943059385149
+    }
+  ]
+}
