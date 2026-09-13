@@ -228,7 +228,9 @@ def main():
     for table, fname, title, xlabel in [(closing,"closing-efficiency.html","Closing Efficiency: Who Converts Leads Better Than Expected?","Conversion above expectation (shrunken pp)"),(comeback,"comeback-resilience.html","Comeback Resilience: Who Wins More Often Than Their Deficit Implies?","Comeback performance above expectation (shrunken pp)")]:
         q=table.head(12).sort_values("efficiency_pp")
         if len(q):
-            fig=px.bar(q,x="efficiency_pp",y="teamname",color="league",orientation="h",error_x="ci95_pp",hover_data=["n","actual_wins","expected_wins"],labels={"efficiency_pp":xlabel,"teamname":"Team"},title=title); fig.add_vline(x=0,line_dash="dash",opacity=.5); chart(fig,fname)
+            fig=px.bar(q,x="efficiency_pp",y="teamname",color="league",orientation="h",error_x="ci95_pp",hover_data=["n","actual_wins","expected_wins"],labels={"efficiency_pp":xlabel,"teamname":"Team"},title=title)
+            fig.update_yaxes(categoryorder="array", categoryarray=q["teamname"].tolist())
+            fig.add_vline(x=0,line_dash="dash",opacity=.5); chart(fig,fname)
     ahead = p20[p20[g20]>0].copy(); sample=ahead.sample(min(7000,len(ahead)),random_state=RANDOM_STATE)
     sample["Outcome"] = sample.result.map({0: "Loss", 1: "Win"})
     fig = px.scatter(sample, x=g20, y="state_edge", color="Outcome", opacity=.35, hover_data=["teamname", "opponent", "league", "gameid"], labels={g20: "Gold lead at 20 minutes", "state_edge": "P(state + trajectory) minus P(gold + side)"})
