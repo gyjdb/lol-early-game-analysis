@@ -1,0 +1,51 @@
+name: Rebuild esports analysis
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'analysis/analyze.py'
+      - '.github/workflows/rebuild-analysis.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy scikit-learn plotly
+
+      - name: Run analysis
+        run: python analysis/analyze.py
+
+      - name: Commit generated analysis outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add analysis/results.json analysis/*.csv \
+            assets/dynamic-win-probability.html \
+            assets/state-vs-gold-brier.html \
+            assets/lead-quality-20.html \
+            assets/closing-efficiency.html \
+            assets/comeback-resilience.html \
+            assets/league-90-threshold.html
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Update dynamic esports analysis [skip ci]"
+            git push
+          fi
