@@ -16,7 +16,7 @@ No end-of-game gold, objective totals, duration, team identity or final result i
 
 Gold: training-fold median imputation, standardization and logistic regression (C=1, max_iter=2500). Richer models: training-fold median imputation, degree-two polynomial features including squares and pairwise interactions, standardization and logistic regression (C=0.1, max_iter=5000). Parameters are fixed, not chosen against the reported outcomes.
 
-Five-fold GroupKFold groups by game ID, so mirrored Blue/Red observations never straddle training and validation. All models share the same folds. Preprocessing fits only on training data. To reconcile two model perspectives, set P(team) = [raw P(team) + 1 - raw P(opponent)]/2. Thus opposing probabilities sum to one. Published Brier, log loss and ROC AUC use these out-of-fold probabilities. Log loss clips to [1e-6, 1-1e-6].
+Five-fold GroupKFold with shuffle=True and random_state=42 groups by game ID, so mirrored Blue/Red observations never straddle training and validation. Explicit seeded shuffling avoids platform-dependent tie ordering among equal-size groups. All models share the same folds. Preprocessing fits only on training data. To reconcile two model perspectives, set P(team) = [raw P(team) + 1 - raw P(opponent)]/2. Thus opposing probabilities sum to one. Published Brier, log loss and ROC AUC use these out-of-fold probabilities. Log loss clips to [1e-6, 1-1e-6].
 
 Compare current state against gold to measure the joint value of added resources and model flexibility. Compare trajectory against the same current-state pipeline to isolate the predictive contribution of history. This is not a causal test, and the former comparison does not isolate any single resource.
 

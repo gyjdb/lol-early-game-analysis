@@ -98,7 +98,7 @@ def grouped_oof(d, features, gold_col):
     state_features = [c for c in features if not c.endswith("_velocity")]
     pg, ps, pf = np.zeros(len(d)), np.zeros(len(d)), np.zeros(len(d))
     fold_ids = np.zeros(len(d), dtype=int)
-    for fold, (train, test) in enumerate(GroupKFold(n_splits=5).split(Xg, y, groups)):
+    for fold, (train, test) in enumerate(GroupKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE).split(Xg, y, groups)):
         assert not set(groups[train]) & set(groups[test])
         gm, sm, fm = gold_model(), full_state_model(), full_state_model()
         gm.fit(Xg.iloc[train], y[train]); sm.fit(d[state_features].iloc[train], y[train]); fm.fit(Xf.iloc[train], y[train])
@@ -169,6 +169,9 @@ def team_table(pred, gold_col, ahead, min_n=20):
 def chart(fig, filename):
     fig.update_layout(template="plotly_dark", paper_bgcolor="#101a25", plot_bgcolor="#101a25", font=dict(family="Arial, sans-serif", color="#dbe5ef"), title=None, autosize=True, margin=dict(l=65, r=25, t=55, b=65), legend=dict(orientation="h", y=1.15, x=0))
     fig.write_html(ASSETS / filename, include_plotlyjs="directory", full_html=True, config={"responsive": True, "displaylogo": False, "scrollZoom": False}, div_id=filename.removesuffix(".html"))
+    path = ASSETS / filename
+    markup = path.read_text(encoding="utf-8").replace("<head>", '<head><style>html,body{margin:0;background:#101a25;color:#dbe5ef}</style>')
+    path.write_text(markup, encoding="utf-8")
 
 
 def records(df, n=8):
