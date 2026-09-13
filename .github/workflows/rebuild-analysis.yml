@@ -3,39 +3,83 @@ name: Rebuild esports analysis
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'analysis/analyze_v2.py'
+      - 'analysis/build_site.py'
+      - 'analysis/validate.py'
+      - 'analysis/prepare_pages.py'
+      - 'analysis/requirements.txt'
+      - 'analysis/METHODOLOGY.md'
+      - 'assets/research.css'
+      - 'assets/favicon.svg'
       - '.github/workflows/rebuild-analysis.yml'
+
+concurrency:
+  group: esports-analysis-pages
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
         with:
-          python-version: '3.11'
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
           cache: pip
-      - name: Install dependencies
+          cache-dependency-path: analysis/requirements.txt
+      - name: Install pinned dependencies
+        run: python -m pip install -r analysis/requirements.txt
+      - name: Analyze, rebuild and validate
+        env:
+          OMP_NUM_THREADS: '2'
+          OPENBLAS_NUM_THREADS: '2'
         run: |
-          python -m pip install --upgrade pip
-          pip install pandas numpy scikit-learn plotly
-      - name: Run analysis
-        run: python analysis/analyze_v2.py
-      - name: Commit generated analysis outputs
+          python analysis/analyze_v2.py
+          python analysis/build_site.py
+          python analysis/validate.py
+      - name: Commit verified outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add analysis/*.json analysis/*.csv assets/*.html
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-          else
-            git commit -m "Update dynamic esports analysis [skip ci]"
-            git push
+          git add analysis/*.json analysis/*.csv assets/*.html assets/plotly.min.js index.html README.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish verified esports findings and charts [skip ci]"
+            git push origin HEAD:main
           fi
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Stage public files
+        run: python analysis/prepare_pages.py
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .site
+      - name: Archive analysis evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: esports-analysis-results
+          path: |
+            analysis/*.csv
+            analysis/results.json
+          retention-days: 30
+  deploy:
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified site
+        id: deployment
+        uses: actions/deploy-pages@v4
