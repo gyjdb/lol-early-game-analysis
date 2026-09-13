@@ -167,10 +167,23 @@ def team_table(pred, gold_col, ahead, min_n=20):
 
 
 def chart(fig, filename):
-    fig.update_layout(template="plotly_dark", paper_bgcolor="#101a25", plot_bgcolor="#101a25", font=dict(family="Arial, sans-serif", color="#dbe5ef"), title=None, autosize=True, margin=dict(l=65, r=25, t=55, b=65), legend=dict(orientation="h", y=1.15, x=0))
+    palette = {"10 min": "#155bea", "15 min": "#087e8b", "20 min": "#a45616", "25 min": "#7653ab", "Gold + side": "#718197", "Current state": "#155bea", "State + trajectory": "#a45616", "Win": "#155bea", "Loss": "#b75324", "LCK": "#155bea", "LEC": "#087e8b", "LCS": "#a45616"}
+    for trace in fig.data:
+        name = trace.name or ""
+        color = palette.get(name, "#155bea")
+        if name.startswith("Growing"): color = "#155bea"
+        elif name.startswith("Shrinking"): color = "#b75324"
+        elif name.startswith("Stable"): color = "#718197"
+        if trace.type in ("scatter", "scattergl"):
+            trace.update(marker_color=color, line_color=color)
+            if trace.mode and "lines" in trace.mode: trace.update(line_width=2.5)
+        elif trace.type == "bar": trace.update(marker_color=color)
+    fig.update_layout(template="plotly_white", paper_bgcolor="#ffffff", plot_bgcolor="#ffffff", font=dict(family="IBM Plex Sans, Arial, sans-serif", color="#33455d", size=12), title=None, autosize=True, margin=dict(l=65, r=25, t=55, b=65), legend=dict(orientation="h", y=1.15, x=0, title_text=""))
+    fig.update_xaxes(gridcolor="#e4eaf2", zerolinecolor="#b9c6d6", automargin=True)
+    fig.update_yaxes(gridcolor="#e4eaf2", zerolinecolor="#b9c6d6", automargin=True)
     fig.write_html(ASSETS / filename, include_plotlyjs="directory", full_html=True, config={"responsive": True, "displaylogo": False, "scrollZoom": False}, div_id=filename.removesuffix(".html"))
     path = ASSETS / filename
-    markup = path.read_text(encoding="utf-8").replace("<head>", '<head><style>html,body{margin:0;background:#101a25;color:#dbe5ef}</style>')
+    markup = path.read_text(encoding="utf-8").replace("<head>", '<head><style>@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap");html,body{margin:0;background:#fff;color:#33455d}</style>')
     path.write_text(markup, encoding="utf-8")
 
 
