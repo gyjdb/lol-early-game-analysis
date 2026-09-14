@@ -1,0 +1,18 @@
+{
+  "source_url": "https://drive.google.com/file/d/1hnpbrUpBMS1TZI7IovfpKeZfWJH1Aptm/view",
+  "source_sha256": "b63159b36a2a48666a83f9e56e4e8e94ccf2ba10bac3b2d9f871585c9f4325a2",
+  "snapshot_sha256": "1c93393612384d238f6b51d4cd939fe3ec8736c2ae4fc851a32b8308b0fd08f3",
+  "retrieved_date": "2026-09-13",
+  "max_game_date": "2026-09-13 18:46:05",
+  "leagues": [
+    "LPL",
+    "LCK",
+    "LEC",
+    "LCS",
+    "LCP",
+    "CBLOL"
+  ],
+  "team_rows": 4604,
+  "raw_games": 2302,
+  "transform": "Six domestic Tier 1 leagues; team rows plus player champion labels. No source rows dropped for completeness. See freeze_2026.py."
+}

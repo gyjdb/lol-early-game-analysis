@@ -5,6 +5,12 @@ on:
   push:
     branches: [main]
     paths:
+      - 'analysis/analyze_pro.py'
+      - 'analysis/build_pro_site.py'
+      - 'analysis/validate_pro.py'
+      - 'analysis/freeze_2026.py'
+      - 'analysis/PRO_METHODOLOGY.md'
+      - 'analysis/data/**'
       - 'analysis/analyze_v2.py'
       - 'analysis/build_site.py'
       - 'analysis/validate.py'
@@ -47,11 +53,14 @@ jobs:
           python analysis/analyze_v2.py
           python analysis/build_site.py
           python analysis/validate.py
+          python analysis/analyze_pro.py
+          python analysis/build_pro_site.py
+          python analysis/validate_pro.py
       - name: Commit verified outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add analysis/*.json analysis/*.csv assets/*.html assets/plotly.min.js index.html README.md
+          git add analysis/*.json analysis/*.csv assets/*.html assets/plotly.min.js index.html history2022.html README.md
           if ! git diff --cached --quiet; then
             git commit -m "Publish verified esports findings and charts [skip ci]"
             git push origin HEAD:main
