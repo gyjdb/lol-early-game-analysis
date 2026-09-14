@@ -1,79 +1,41 @@
-# The Point of No Return
+# Beyond the Lead — 2026 Pro LoL Research
 
-**When is a League of Legends lead safe—and what does its recent history add?**
+[Public research desk](https://gyjdb.github.io/lol-early-game-analysis/) · [2022 archive](https://gyjdb.github.io/lol-early-game-analysis/history2022.html)
 
-[Interactive study](https://gyjdb.github.io/lol-early-game-analysis/) · [Methodology](analysis/METHODOLOGY.md) · [Results](analysis/results.json) · [Workflow](https://github.com/gyjdb/lol-early-game-analysis/actions/workflows/rebuild-analysis.yml)
+Which teams convert a 20-minute advantage beyond what their state and prior strength predict?
 
-An analysis of **10,522 complete 2022 competitive matches** from Oracle’s Elixir, with snapshots at 10, 15, 20 and 25 minutes. The sample includes professional, academy, regional and collegiate competition.
+The current study covers six domestic Tier 1 leagues: LPL, LCK, LEC, LCS, LCP and CBLOL. The official Oracle’s Elixir snapshot retrieved 13 September 2026 contains 2,302 source games; 2,161 pass paired 15/20-minute feature checks. **LPL is included: 535/674 source games, all 14 teams in the audit.** September is incomplete. This is a frozen study, not a live data feed.
 
 ## Verified findings
 
-- **A fixed gold lead means less later.** The fitted 90% threshold rises from +2,843 at 10 minutes to +5,148 at 25. This compares changing surviving-match samples, not one game’s trajectory.
-- **Current state adds information.** At 20 minutes, resources and interactions reduce out-of-fold Brier score from **0.14581 to 0.14171** (2.81% relative reduction).
-- **Extra momentum features do not establish further improvement.** Trajectory Brier is 0.14173. Current state minus gold: ΔBrier -0.00410, 95% paired game-bootstrap interval [-0.00517, -0.00302]. Trajectory minus current state: +0.00001, interval [-0.00018, +0.00018]. The latter includes zero.
-- **The raw momentum gap is confounded.** For +1K–3K leads at 20 minutes, growing leads win 73.6% (1,967 matches), shrinking leads 65.2% (425). Their mean current leads differ: +2,051 vs. +1,800. This does not isolate momentum.
-- **Team residuals are descriptive.** G2 Esports wins 33/37 leads against 27.9 expected wins. T1 wins 13/27 deficits against 7.47 expected. These are retrospective signals, not causal skill ratings.
+- Across 1,515 April–September forward-evaluated games, gold + side Brier is 0.16050; state + prior Elo is 0.15523 (3.3% lower).
+- State + Elo versus state: ΔBrier -0.00305, 95% cluster interval [-0.00558, -0.00052].
+- Adding trajectory to state + Elo worsens Brier: +0.00195, interval [+0.00066, +0.00318]. This does not establish a universal claim about momentum.
+- BLG wins 53/62 held-out games when ahead at 20; expected wins are 52.9. Its shrunken residual is +0.09 percentage points. All displayed LPL closing intervals include zero; no reliable best-closing team is established.
 
-## Gold thresholds
+## Methods and evidence
 
-| Checkpoint | Eligible games | 80% | 90% | 95% |
-| --- | ---: | ---: | ---: | ---: |
-| 10 min | 10,522 | +1,804 | +2,843 | +3,808 |
-| 15 min | 10,522 | +2,662 | +4,197 | +5,640 |
-| 20 min | 10,462 | +3,109 | +4,892 | +6,545 |
-| 25 min | 9,442 | +3,253 | +5,148 | +6,941 |
+Monthly expanding training windows use a seven-day gap. All models share the same eligible games and fixed regularized linear specification. Elo uses only earlier days, league-local season-start 1500 and K=20. Final objectives, vision and plates are excluded. Drafts accompany review cases but are not used as scaling predictors.
 
-Thresholds are approximate crossings on a 600-point fitted grid within the observed 0.5th–99.5th percentile gold range. No threshold uncertainty interval is estimated. At 25 minutes, 1,076 complete games have already ended and four more have no usable snapshot. The sample has changed.
+[Methodology](analysis/PRO_METHODOLOGY.md), [results](analysis/pro_results.json), [predictions](analysis/pro_predictions.csv), [eligibility](analysis/pro_eligibility.csv), [team coverage](analysis/pro_team_coverage.csv), [team residuals](analysis/pro_teams.csv), [next-five-minute outcomes](analysis/pro_next5.csv), [LPL review candidates](analysis/pro_lpl_review_queue.csv).
 
-## Held-out model quality at 20 minutes
-
-| Model | Brier ↓ | Log loss ↓ | AUC ↑ |
-| --- | ---: | ---: | ---: |
-| Gold + map side | 0.14581 | 0.44672 | 0.87173 |
-| Current state | 0.14171 | 0.43614 | 0.87849 |
-| State + trajectory | 0.14173 | 0.43608 | 0.87851 |
-
-Models use identical five-fold GroupKFold splits by game ID. Both sides stay together; preprocessing fits inside each training fold. Current state adds XP, CS, kills and plates with second-order interactions. Trajectory adds five-minute gold, XP and CS changes. At 10 minutes there is no trajectory history. “Gold-only” shorthand includes map side.
-
-The September–December holdout agrees directionally: current state Brier 0.12650, trajectory 0.12695, across 1,455 games after training on 9,007 January–August games. This does not prove momentum never matters; these features did not establish an additional benefit.
+Intervals resample fixed held-out losses by series proxy (league/day/team-pair); team intervals resample team-days. No model-refit uncertainty, multiple-comparison correction or untouched final test is claimed. Team shrinkage uses fixed n/(n+30); charts require n≥15. Missing data, patch and roster changes can bias comparisons. Review cases are source-identified, not replay-verified tactical explanations.
 
 ## Reproduce
-
-Python 3.11–3.13:
 
 ```sh
 python -m pip install -r analysis/requirements.txt
 python analysis/analyze_v2.py
 python analysis/build_site.py
 python analysis/validate.py
-python -m http.server 8000
+python analysis/analyze_pro.py
+python analysis/build_pro_site.py
+python analysis/validate_pro.py
+python analysis/prepare_pages.py
 ```
 
-Open `http://localhost:8000`. The first run downloads the pinned source to `.cache/lol2022.csv`; `LOL_DATA_PATH` can point to another local copy. SHA-256 enforces the exact dataset. The workflow regenerates CSVs, charts, homepage and README, validates them, commits outputs and explicitly deploys GitHub Pages.
+The first three steps preserve and validate the original 2022 study. The 2026 analysis uses the committed compressed six-league team snapshot; it never depends on a mutable daily download. [Snapshot provenance](analysis/data/provenance_2026.json) includes both full-source and subset SHA-256 values. `freeze_2026.py RAW_CSV` reproduces the subset from the matching original file. Source: [Oracle’s Elixir official downloads](https://oracleselixir.com/tools/downloads). Data by Tim Sevenhuysen.
 
-## Evidence
+GitHub Actions regenerates and validates both studies, commits results and deploys Pages. The 2022 archive retains its separate 10,522-game sample and historical findings; its missing LPL data does not describe the 2026 source.
 
-- [All results](analysis/results.json), [20-minute predictions](analysis/predictions_20.csv) with game IDs, folds and opposing probabilities
-- [Probability curves](analysis/win_probability_curves.csv), [model performance](analysis/model_performance.csv), [calibration](analysis/calibration_20.csv), [time holdout](analysis/temporal_holdout_20.csv)
-- [Trajectory groups](analysis/trajectory_summary.csv), [closing residuals](analysis/closing_efficiency.csv), [comeback residuals](analysis/comeback_resilience.csv), [regional thresholds](analysis/league_thresholds.csv)
-- [Fragile](analysis/fragile_leads.csv) and [robust](analysis/robust_leads.csv) model-disagreement cases
-- [Unexpected losses](analysis/largest_throws.csv) and [unexpected wins](analysis/largest_comebacks.csv): model-flagged review queues, not replay-verified throw rankings
-- [League coverage](analysis/league_coverage.csv)
-
-## Scope and limitations
-
-The source has 12,415 matches; 1,893 partial matches are excluded. **LPL has no complete matches**, so regional/team comparisons cover LCK, LCS and LEC. Later checkpoints condition on survival. Around 0.42% of 20-minute plate values require fold-local imputation.
-
-No final objective totals enter the models. Plates are used from 15 minutes onward, after their 14-minute expiration in 2022. Draft, scaling, vision, checkpoint objectives, opponent strength and series context are absent. Teams, patches and series can recur across folds. This is retrospective to 2022, not a current live-prediction system.
-
-Lead quality is `P(state + trajectory) − P(gold + side)`. Team residuals are `(actual wins − expected wins)/(n+30)` with n≥20, by league/team and ahead/behind condition. Bars show mean residual × n/(n+30), requiring n≥20. Error bars are approximate 95% intervals with the same shrinkage applied. They exclude model uncertainty and multiple-comparison adjustment. The factor 30 is a fixed heuristic, not fitted hierarchical pooling. Bootstrap score intervals use 1,000 paired game resamples of fixed out-of-fold losses, not model refits; checkpoint comparisons are not multiplicity-adjusted.
-
-## Provenance
-
-[Oracle’s Elixir](https://oracleselixir.com/) data through an [immutable public mirror](https://raw.githubusercontent.com/twodotone/finalLOL/bec30f4031cfb11aa3424240a427997480134f79/data/csv/2022_LoL_esports_match_data_from_OraclesElixir.csv).
-
-SHA-256: `cd14d6e3500c08e4a48d737144aa2d2dce72111f4dcf51028949a3b811832a93`
-
-The homepage and README are generated by `analysis/build_site.py` from verified outputs. Earlier course visuals remain as historical assets; their old accuracy/fairness results are not evidence for this study.
-
-Built by **Ethan Cai**.
+Built by Ethan Cai.

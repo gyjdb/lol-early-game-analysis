@@ -1,0 +1,302 @@
+{
+  "provenance": {
+    "source_url": "https://drive.google.com/file/d/1hnpbrUpBMS1TZI7IovfpKeZfWJH1Aptm/view",
+    "source_sha256": "b63159b36a2a48666a83f9e56e4e8e94ccf2ba10bac3b2d9f871585c9f4325a2",
+    "snapshot_sha256": "1c93393612384d238f6b51d4cd939fe3ec8736c2ae4fc851a32b8308b0fd08f3",
+    "retrieved_date": "2026-09-13",
+    "max_game_date": "2026-09-13 18:46:05",
+    "leagues": [
+      "LPL",
+      "LCK",
+      "LEC",
+      "LCS",
+      "LCP",
+      "CBLOL"
+    ],
+    "team_rows": 4604,
+    "raw_games": 2302,
+    "transform": "Six domestic Tier 1 leagues; team rows plus player champion labels. No source rows dropped for completeness. See freeze_2026.py."
+  },
+  "eligible_games": 2161,
+  "test_games": 1515,
+  "folds": [
+    {
+      "fold": "2026-04",
+      "train_end": "2026-03-08 12:04:35",
+      "train_games": 618,
+      "test_games": 375
+    },
+    {
+      "fold": "2026-05",
+      "train_end": "2026-04-23 12:45:41",
+      "train_games": 928,
+      "test_games": 398
+    },
+    {
+      "fold": "2026-06",
+      "train_end": "2026-05-24 23:44:08",
+      "train_games": 1339,
+      "test_games": 90
+    },
+    {
+      "fold": "2026-07",
+      "train_end": "2026-06-14 22:24:48",
+      "train_games": 1509,
+      "test_games": 121
+    },
+    {
+      "fold": "2026-08",
+      "train_end": "2026-07-24 19:05:00",
+      "train_games": 1532,
+      "test_games": 429
+    },
+    {
+      "fold": "2026-09",
+      "train_end": "2026-08-24 18:57:53",
+      "train_games": 1980,
+      "test_games": 102
+    }
+  ],
+  "metrics": [
+    {
+      "model": "gold",
+      "games": 1515,
+      "brier": 0.16050130636355273,
+      "log_loss": 0.48550497535458786,
+      "auc": 0.842133693691124
+    },
+    {
+      "model": "state",
+      "games": 1515,
+      "brier": 0.1582870062697267,
+      "log_loss": 0.48001159628964296,
+      "auc": 0.8455280929323759
+    },
+    {
+      "model": "trajectory",
+      "games": 1515,
+      "brier": 0.16014488507375996,
+      "log_loss": 0.4840182369105491,
+      "auc": 0.84248489991514
+    },
+    {
+      "model": "strength",
+      "games": 1515,
+      "brier": 0.15523222735023473,
+      "log_loss": 0.471791396272714,
+      "auc": 0.8517963217833431
+    },
+    {
+      "model": "full",
+      "games": 1515,
+      "brier": 0.1571798168625402,
+      "log_loss": 0.4761752439674242,
+      "auc": 0.8484750162232316
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison": "state minus gold",
+      "delta_brier": -0.0022143000938260257,
+      "low": -0.004522804912691265,
+      "high": 0.0001157962936353498
+    },
+    {
+      "comparison": "trajectory minus state",
+      "delta_brier": 0.001857878804033247,
+      "low": 0.0005653480318843242,
+      "high": 0.003248884259596697
+    },
+    {
+      "comparison": "strength minus state",
+      "delta_brier": -0.003054778919491941,
+      "low": -0.005579979617729097,
+      "high": -0.0005220573525968022
+    },
+    {
+      "comparison": "full minus strength",
+      "delta_brier": 0.0019475895123054463,
+      "low": 0.0006578135151820582,
+      "high": 0.0031791342817173674
+    }
+  ],
+  "coverage": [
+    {
+      "league": "CBLOL",
+      "source_games": 250,
+      "eligible_games": 250,
+      "coverage_pct": 100.0
+    },
+    {
+      "league": "LCK",
+      "source_games": 502,
+      "eligible_games": 502,
+      "coverage_pct": 100.0
+    },
+    {
+      "league": "LCP",
+      "source_games": 283,
+      "eligible_games": 283,
+      "coverage_pct": 100.0
+    },
+    {
+      "league": "LCS",
+      "source_games": 221,
+      "eligible_games": 221,
+      "coverage_pct": 100.0
+    },
+    {
+      "league": "LEC",
+      "source_games": 372,
+      "eligible_games": 370,
+      "coverage_pct": 99.46236559139786
+    },
+    {
+      "league": "LPL",
+      "source_games": 674,
+      "eligible_games": 535,
+      "coverage_pct": 79.37685459940653
+    }
+  ],
+  "lpl_teams": 14,
+  "features": {
+    "gold": [
+      "golddiffat20",
+      "blue"
+    ],
+    "state": [
+      "golddiffat20",
+      "xpdiffat20",
+      "csdiffat20",
+      "killdiff20",
+      "blue"
+    ],
+    "trajectory": [
+      "golddiffat20",
+      "xpdiffat20",
+      "csdiffat20",
+      "killdiff20",
+      "blue",
+      "gold_change15_20",
+      "xp_change15_20",
+      "cs_change15_20"
+    ],
+    "strength": [
+      "golddiffat20",
+      "xpdiffat20",
+      "csdiffat20",
+      "killdiff20",
+      "blue",
+      "elo_diff"
+    ],
+    "full": [
+      "golddiffat20",
+      "xpdiffat20",
+      "csdiffat20",
+      "killdiff20",
+      "blue",
+      "gold_change15_20",
+      "xp_change15_20",
+      "cs_change15_20",
+      "elo_diff"
+    ]
+  },
+  "review_cases": [
+    {
+      "gameid": "13276-13276_game_2",
+      "teamname": "Ninjas in Pyjamas",
+      "opponent": "Team WE",
+      "date": "2026-05-16 13:54:07",
+      "patch": 16.09,
+      "golddiffat20": 8519.0,
+      "golddiffat25": 5904.0,
+      "p_strength": 0.987641594095003,
+      "draft": "top: Jayce / jng: Qiyana / mid: Cassiopeia / bot: Caitlyn / sup: Bard",
+      "opponent_draft": "top: Gragas / jng: Trundle / mid: Annie / bot: Corki / sup: Nami"
+    },
+    {
+      "gameid": "13399-13399_game_1",
+      "teamname": "Bilibili Gaming",
+      "opponent": "Top Esports",
+      "date": "2026-08-07 12:49:11",
+      "patch": 16.15,
+      "golddiffat20": 6441.0,
+      "golddiffat25": 7375.0,
+      "p_strength": 0.9619928362747474,
+      "draft": "top: Ambessa / jng: Jarvan IV / mid: Lissandra / bot: Corki / sup: Camille",
+      "opponent_draft": "top: Rumble / jng: Vi / mid: Ahri / bot: Jhin / sup: Alistar"
+    },
+    {
+      "gameid": "13279-13279_game_5",
+      "teamname": "LNG Esports",
+      "opponent": "Team WE",
+      "date": "2026-05-23 09:45:05",
+      "patch": 16.1,
+      "golddiffat20": 4137.0,
+      "golddiffat25": 4893.0,
+      "p_strength": 0.9018777164638276,
+      "draft": "top: Ambessa / jng: Jayce / mid: Galio / bot: Jinx / sup: Lulu",
+      "opponent_draft": "top: Aatrox / jng: Poppy / mid: Smolder / bot: Ashe / sup: Seraphine"
+    },
+    {
+      "gameid": "13282-13282_game_3",
+      "teamname": "LGD Gaming",
+      "opponent": "Weibo Gaming",
+      "date": "2026-05-24 12:54:04",
+      "patch": 16.1,
+      "golddiffat20": 3827.0,
+      "golddiffat25": -1100.0,
+      "p_strength": 0.8948033871827237,
+      "draft": "top: Yorick / jng: Jayce / mid: Galio / bot: Miss Fortune / sup: Nautilus",
+      "opponent_draft": "top: K'Sante / jng: Xin Zhao / mid: Aurora / bot: Ezreal / sup: Bard"
+    },
+    {
+      "gameid": "13395-13395_game_2",
+      "teamname": "Invictus Gaming",
+      "opponent": "Ninjas in Pyjamas",
+      "date": "2026-08-06 11:21:38",
+      "patch": 16.15,
+      "golddiffat20": 4957.0,
+      "golddiffat25": -1867.0,
+      "p_strength": 0.8709691258037275,
+      "draft": "top: Zaahen / jng: Nocturne / mid: Ryze / bot: Lucian / sup: Milio",
+      "opponent_draft": "top: Olaf / jng: Trundle / mid: Cassiopeia / bot: Xayah / sup: Rakan"
+    },
+    {
+      "gameid": "13236-13236_game_1",
+      "teamname": "Bilibili Gaming",
+      "opponent": "Ninjas in Pyjamas",
+      "date": "2026-04-23 11:49:04",
+      "patch": 16.08,
+      "golddiffat20": 2982.0,
+      "golddiffat25": 3218.0,
+      "p_strength": 0.8625739392291099,
+      "draft": "top: Yorick / jng: Jarvan IV / mid: Aurora / bot: Jhin / sup: Bard",
+      "opponent_draft": "top: Gnar / jng: Vi / mid: Ahri / bot: Ashe / sup: Seraphine"
+    },
+    {
+      "gameid": "13504-13504_game_5",
+      "teamname": "Invictus Gaming",
+      "opponent": "Anyone's Legend",
+      "date": "2026-09-12 13:07:02",
+      "patch": 16.17,
+      "golddiffat20": 4066.0,
+      "golddiffat25": 5849.0,
+      "p_strength": 0.8479192519522023,
+      "draft": "top: Anivia / jng: Xin Zhao / mid: LeBlanc / bot: Zeri / sup: Yuumi",
+      "opponent_draft": "top: Olaf / jng: Cho'Gath / mid: Akali / bot: Jinx / sup: Tahm Kench"
+    },
+    {
+      "gameid": "13267-13267_game_3",
+      "teamname": "Top Esports",
+      "opponent": "Ninjas in Pyjamas",
+      "date": "2026-05-12 10:52:49",
+      "patch": 16.09,
+      "golddiffat20": 2246.0,
+      "golddiffat25": 1384.0,
+      "p_strength": 0.8455371371444285,
+      "draft": "top: K'Sante / jng: Maokai / mid: Yone / bot: Jhin / sup: Rell",
+      "opponent_draft": "top: Jayce / jng: Naafiri / mid: Ryze / bot: Sivir / sup: Nautilus"
+    }
+  ]
+}
