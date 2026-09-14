@@ -129,23 +129,31 @@ cases = p[p.league.eq('LPL')&p.golddiffat20.gt(0)&p.result.eq(0)].nlargest(8,'p_
 cases.to_csv(OUT/'pro_lpl_review_queue.csv',index=False)
 
 def chart(fig,name):
-    fig.update_layout(template='plotly_white',font={'family':'IBM Plex Sans, Arial','color':'#152133'},paper_bgcolor='#ffffff',plot_bgcolor='#ffffff',margin={'l':55,'r':20,'t':45,'b':65},legend_title_text='',autosize=True)
-    fig.write_html(ROOT/'assets'/name,include_plotlyjs='plotly.min.js',full_html=True,config={'responsive':True,'displaylogo':False})
-chart(px.bar(flow,x='league',y='games',color='next5',color_discrete_sequence=['#155bea','#008c91','#ba632d','#7448ae','#8197b4','#bc3a50','#5378a4'],labels={'games':'20-minute leaders','league':''}),'pro-next5.html')
+    fig.update_layout(template='plotly_white',font={'family':'Inter, Arial','size':13,'color':'#263c31'},paper_bgcolor='#f7f6f1',plot_bgcolor='#f7f6f1',margin={'l':55,'r':20,'t':45,'b':65},legend_title_text='',autosize=True)
+    fig.update_xaxes(gridcolor='#e0e3d9',zerolinecolor='#728174',zerolinewidth=1,automargin=True)
+    fig.update_yaxes(gridcolor='#e0e3d9',zerolinecolor='#728174',automargin=True)
+    if name == 'pro-teams.html': fig.update_yaxes(showgrid=False)
+    fig.update_layout(hoverlabel={'bgcolor':'#f7f6f1','font_color':'#263c31'},modebar={'color':'#728174','activecolor':'#245f4c'},legend={'orientation':'h','y':1.17,'x':0})
+    target = ROOT/'assets'/name
+    fig.write_html(target,include_plotlyjs='plotly.min.js',full_html=True,config={'responsive':True,'displaylogo':False,'scrollZoom':False})
+    markup = target.read_text(encoding='utf-8').replace('<head>','<head><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><style>body{margin:0;background:#f7f6f1}</style>')
+    target.write_text(markup,encoding='utf-8')
+chart(px.bar(flow,x='league',y='games',color='next5',color_discrete_sequence=['#245f4c','#a35d49','#b39a66','#789483','#c9d2bd','#694943','#8caaa3'],labels={'games':'20-minute leaders','league':''}),'pro-next5.html')
 rank = teams[teams.condition.eq('Ahead')&teams.n.ge(15)].sort_values(['league','adjusted_pp'])
 # Keep separate regions; the menu defaults to LPL, not an international ranking.
 import plotly.graph_objects as go
 fig = go.Figure()
 for league in meta['leagues']:
     z = rank[rank.league.eq(league)]
-    fig.add_trace(go.Bar(x=z.adjusted_pp,y=z.teamname,orientation='h',name=league,visible=league=='LPL',marker_color='#155bea',error_x={'type':'data','symmetric':False,'array':np.maximum(0,z.high-z.adjusted_pp),'arrayminus':np.maximum(0,z.adjusted_pp-z.low)},customdata=z[['n','wins','expected_wins','coverage_pct']],hovertemplate='%{y}<br>Adjusted residual: %{x:.1f} pp<br>Leading games: %{customdata[0]}<br>Wins: %{customdata[1]} / expected %{customdata[2]:.1f}<br>Season coverage: %{customdata[3]:.1f}%<extra></extra>'))
-fig.update_layout(updatemenus=[{'buttons':[{'label':l,'method':'update','args':[{'visible':[j==i for j in range(6)]}]} for i,l in enumerate(meta['leagues'])],'x':0,'y':1.15}],xaxis_title='Above expectation (shrunken pp)',showlegend=False)
+    fig.add_trace(go.Bar(x=z.adjusted_pp,y=z.teamname,orientation='h',name=league,visible=league=='LPL',marker_color=np.where(z.adjusted_pp.ge(0),'#245f4c','#a35d49'),error_x={'type':'data','symmetric':False,'color':'#728174','thickness':1.2,'array':np.maximum(0,z.high-z.adjusted_pp),'arrayminus':np.maximum(0,z.adjusted_pp-z.low)},customdata=z[['n','wins','expected_wins','coverage_pct']],hovertemplate='%{y}<br>Adjusted residual: %{x:.1f} pp<br>Leading games: %{customdata[0]}<br>Wins: %{customdata[1]} / expected %{customdata[2]:.1f}<br>Season coverage: %{customdata[3]:.1f}%<extra></extra>'))
+fig.update_layout(updatemenus=[{'buttons':[{'label':l,'method':'update','args':[{'visible':[j==i for j in range(6)]}]} for i,l in enumerate(meta['leagues'])],'x':0,'y':1.15,'bgcolor':'#f7f6f1','bordercolor':'#c9d2bd'}],xaxis_title='Adjusted residual (pp)',showlegend=False)
 chart(fig,'pro-teams.html')
 cal = blue.copy();cal['bin'] = pd.cut(cal.p_strength,np.linspace(0,1,9),include_lowest=True)
 cal = cal.groupby('bin',observed=True).agg(predicted=('p_strength','mean'),observed=('result','mean'),games=('gameid','size')).reset_index()
 cal.to_csv(OUT/'pro_calibration.csv',index=False)
 fig = px.scatter(cal,x='predicted',y='observed',size='games',hover_data=['games'],range_x=[0,1],range_y=[0,1],labels={'predicted':'Predicted Blue win probability','observed':'Observed Blue win rate'})
-fig.add_shape(type='line',x0=0,y0=0,x1=1,y1=1,line={'dash':'dot','color':'#8197b4'})
+fig.update_traces(marker_color='#245f4c',marker_opacity=.8)
+fig.add_shape(type='line',x0=0,y0=0,x1=1,y1=1,line={'dash':'dot','color':'#9ca79b'})
 chart(fig,'pro-calibration.html')
 result = {'provenance':meta,'eligible_games':q.gameid.nunique(),'test_games':len(blue),'folds':folds,'metrics':metrics,'comparisons':intervals,'coverage':coverage.to_dict('records'),'lpl_teams':int(tc[tc.league.eq('LPL')].shape[0]),'features':models,'review_cases':cases[['gameid','teamname','opponent','date','patch','golddiffat20','golddiffat25','p_strength','draft','opponent_draft']].astype({'date':str}).to_dict('records')}
 (OUT/'pro_results.json').write_text(json.dumps(result,indent=2,allow_nan=False),encoding='utf-8')

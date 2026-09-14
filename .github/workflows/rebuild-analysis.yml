@@ -18,6 +18,7 @@ on:
       - 'analysis/requirements.txt'
       - 'analysis/METHODOLOGY.md'
       - 'assets/research.css'
+      - 'assets/publication.css'
       - 'assets/favicon.svg'
       - '.github/workflows/rebuild-analysis.yml'
 
